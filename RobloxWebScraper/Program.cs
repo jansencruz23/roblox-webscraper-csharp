@@ -6,8 +6,8 @@ using OpenQA.Selenium.Chrome;
 using RobloxWebScraper;
 using System.Globalization;
 
-var username = "congratsuhackoor";
-var password = "12 qwaszxC";
+var username = "USERNAME";
+var password = "PASSWORD";
 
 var gamesPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..") + "/data/top_roblox_games.csv";
 var gameNames = new List<string>();
