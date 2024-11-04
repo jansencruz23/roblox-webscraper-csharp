@@ -14,4 +14,6 @@ public class GameData
     public string Updated { get; set; } = string.Empty;
     public string ServerSize { get; set; } = string.Empty;
     public string Genre { get; set; } = string.Empty;
+    public string Likes { get; set; } = string.Empty;
+    public string Dislikes { get; set; } = string.Empty;
 }                                                                              
