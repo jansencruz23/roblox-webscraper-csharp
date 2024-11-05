@@ -16,4 +16,6 @@ public class GameData
     public string Genre { get; set; } = string.Empty;
     public string Likes { get; set; } = string.Empty;
     public string Dislikes { get; set; } = string.Empty;
+    public string GameLink { get; set; } = string.Empty;
+    public DateTime DateFetched { get; private set; } = DateTime.Now;
 }                                                                              
