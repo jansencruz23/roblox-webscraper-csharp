@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using RobloxWebScraper;
 
 var csvHelper = new RobloxWebScraper.CsvHelper();
-var gameNames = csvHelper.ReadCsv("roblox_games_list");
+var gameNames = csvHelper.ReadCsv("roblox_games_data");
 
 var options = new ChromeOptions();
 options.AddArgument("--headless");
@@ -74,7 +74,7 @@ using (var driver = new ChromeDriver(options))
                     DateFetched: DateTime.Now
                 );
 
-                csvHelper.WriteCsv(gameData, "roblox_games_data2");
+                csvHelper.WriteCsv(gameData, "roblox_games_data(day2)");
                 Console.WriteLine("Game #:" + index);
                 index++;
             }
