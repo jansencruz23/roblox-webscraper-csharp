@@ -19,7 +19,7 @@ public sealed class CsvHelper
         {
             while (csvReader.Read())
             {
-                var gameName = csvReader.GetField<string>(0);
+                var gameName = csvReader.GetField<string>(14);
                 gameNames.Add(gameName ?? string.Empty);
             }
         }

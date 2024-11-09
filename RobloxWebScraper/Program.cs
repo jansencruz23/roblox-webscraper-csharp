@@ -19,74 +19,76 @@ using (var driver = new ChromeDriver(options))
     var scraper = new Scraper();
     var index = 1;
 
-    foreach (var game in gameNames)
+    foreach (var url in gameNames)
     {
-        var url = $"https://www.roblox.com/discover/?Keyword={game}";
-
-        driver.Navigate().GoToUrl(url);
-        Thread.Sleep(1500);
-
-        var pageSource = driver.PageSource;
-        var htmlDocument = new HtmlDocument();
-        htmlDocument.LoadHtml(pageSource);
-
-        var gameCardElement = htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[3]/main/div[2]/div/div/div[1]/a");
-        if (gameCardElement != null)
+        try
         {
-            var gameLink = gameCardElement.GetAttributeValue("href", string.Empty);
-            Console.WriteLine(gameLink);
-
-            driver.Navigate().GoToUrl(gameLink);
+            driver.Navigate().GoToUrl(url);
             Thread.Sleep(1000);
 
-            try
-            {
-                var gamePageSource = driver.PageSource;
-                var gameHtmlDocument = new HtmlDocument();
-                gameHtmlDocument.LoadHtml(gamePageSource);
+            var gamePageSource = driver.PageSource;
+            var gameHtmlDocument = new HtmlDocument();
+            gameHtmlDocument.LoadHtml(gamePageSource);
 
-                scraper.InitializeHtml(gameHtmlDocument);
+            scraper.InitializeHtml(gameHtmlDocument);
 
-                var gameTitle = scraper.GetGameTitle();
-                var gameCreator = scraper.GetGameCreator();
-                var ageRecommendation = scraper.GetAgeRecommendation();
-                var voteUp = scraper.GetVoteUp();
-                var voteDown = scraper.GetVoteDown();
-                var attributes = scraper.GetAttributes();
+            var gameTitle = scraper.GetGameTitle();
+            var gameCreator = scraper.GetGameCreator();
+            var ageRecommendation = scraper.GetAgeRecommendation();
+            var voteUp = scraper.GetVoteUp();
+            var voteDown = scraper.GetVoteDown();
+            var attributes = scraper.GetAttributes();
 
 
-                var gameData = new GameData(
-                    Title: gameTitle,
-                    Creator: gameCreator,
-                    AgeRecommendation: ageRecommendation,
-                    Active: attributes[0],
-                    Favorites: attributes[1],
-                    Visits: attributes[2],
-                    VoiceChat: attributes[3],
-                    Camera: attributes[4],
-                    Created: attributes[5],
-                    Updated: attributes[6],
-                    ServerSize: attributes[7],
-                    Genre: attributes[8],
-                    Likes: voteUp,
-                    Dislikes: voteDown,
-                    GameLink: gameLink,
-                    DateFetched: DateTime.Now
-                );
+            var gameData = new GameData(
+                Title: gameTitle,
+                Creator: gameCreator,
+                AgeRecommendation: ageRecommendation,
+                Active: attributes[0],
+                Favorites: attributes[1],
+                Visits: attributes[2],
+                VoiceChat: attributes[3],
+                Camera: attributes[4],
+                Created: attributes[5],
+                Updated: attributes[6],
+                ServerSize: attributes[7],
+                Genre: attributes[8],
+                Likes: voteUp,
+                Dislikes: voteDown,
+                GameLink: url,
+                DateFetched: DateTime.Now
+            );
 
-                csvHelper.WriteCsv(gameData, "roblox_games_data(day2)");
-                Console.WriteLine("Game #:" + index);
-                index++;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            csvHelper.WriteCsv(gameData, "roblox_games_data(day32)");
+            Console.WriteLine("Game #:" + index);
+            index++;
         }
-        else
+        catch (Exception ex)
         {
-            Console.WriteLine("Game card not found.");
+            Console.WriteLine(ex);
         }
+
+        //var url = $"https://www.roblox.com/discover/?Keyword={game}";
+
+        //driver.Navigate().GoToUrl(url);
+        //Thread.Sleep(1500);
+
+        //var pageSource = driver.PageSource;
+        //var htmlDocument = new HtmlDocument();
+        //htmlDocument.LoadHtml(pageSource);
+
+        //var gameCardElement = htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[3]/main/div[2]/div/div/div[1]/a");
+        //if (gameCardElement != null)
+        //{
+        //    var gameLink = gameCardElement.GetAttributeValue("href", string.Empty);
+        //    Console.WriteLine(gameLink);
+
+        // here paste
+        //}
+        //else
+        //{
+        //    Console.WriteLine("Game card not found.");
+        //}
     }
 }
 
