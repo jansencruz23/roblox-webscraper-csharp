@@ -59,7 +59,7 @@ using (var driver = new ChromeDriver(options))
                 DateFetched: DateTime.Now
             );
 
-            csvHelper.WriteCsv(gameData, "roblox_games_data(day32)");
+            csvHelper.WriteCsv(gameData, "roblox_games_data(day4-am)");
             Console.WriteLine("Game #:" + index);
             index++;
         }
